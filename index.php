@@ -1,37 +1,37 @@
 
 <?php
-    $base = "https://pokeapi.co/api/v2/pokemon/";
-    $id = 6;
+    
+    $id = 80;
 
-
-    $data = file_get_contents($base.$id."/");
-    $pokemon = json_decode($data);
-    $name = $pokemon->name;
-    $id = $pokemon->id;
+    function getPokemon($id){
+        $base = "https://pokeapi.co/api/v2/pokemon/";
+        $data = file_get_contents($base.$id."/");
+        $pokemon = json_decode($data);
+        return $pokemon;
+    }
+    
+    $name = getPokemon($id)->name;
+    $id = getPokemon($id)->id;
     
    
-    $img_front = $pokemon->sprites->front_default;
-    $img_back = $pokemon->sprites->back_default;
-    $move1 = $pokemon->moves[0]->move->name;
-    $move2 = $pokemon->moves[1]->move->name;
-    $move3 = $pokemon->moves[2]->move->name;
-    $move4 = $pokemon->moves[3]->move->name;
+    $img_front = getPokemon($id)->sprites->front_default;
+    $img_back = getPokemon($id)->sprites->back_default;
+    $move1 = getPokemon($id)->moves[0]->move->name;
+    $move2 = getPokemon($id)->moves[1]->move->name;
+    $move3 = getPokemon($id)->moves[2]->move->name;
+    $move4 = getPokemon($id)->moves[3]->move->name;
 ?>
 
 <?php
  
 if(isset($_POST['previous'])){
-    pre($id);
+    return $id--;
+    getPokemon($id);
 }
 else if(isset($_POST['next'])){
     echo nex($id);
 }
-function pre($id){
-    echo $id--;
-}
-function nex($id){
-    echo $id++;
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -96,10 +96,3 @@ function nex($id){
     </div>
 </body>
 </html>
-
-
-
-
-
-
-
