@@ -1,46 +1,38 @@
 
 <?php
-    
-    $id = 6;
-
-    
-
+        
+     if(isset($_POST['run'])){
+        $id = $_POST['search'];
+        getPokemon($id);
+    } 
     function getPokemon($id){
         $base = "https://pokeapi.co/api/v2/pokemon/";
         $data = file_get_contents($base.$id."/");
         $pokemon = json_decode($data);
         return $pokemon;
     }
+     if(isset($_POST['previous'])){
+        $id--;
+        getPokemon($id);
+    }
+
+    if(isset($_POST['next'])){
+        $id++;
+        getPokemon($id);
+    }
+
     
     $name = getPokemon($id)->name;
-    $id = getPokemon($id)->id;
-    
-    
     $img_front = getPokemon($id)->sprites->front_default;
-    $img_back = getPokemon($id)->sprites->back_default;
+    $img_back = getPokemon($id)->sprites->back_default;    
     $move1 = getPokemon($id)->moves[0]->move->name;
     $move2 = getPokemon($id)->moves[1]->move->name;
     $move3 = getPokemon($id)->moves[2]->move->name;
     $move4 = getPokemon($id)->moves[3]->move->name;
-?>
 
-<?php
-if(isset($_POST['run'])){
-    $id = $_POST['search'];
-    getPokemon($id);
-}
-
-/*if(isset($_POST['previous'])){
-    $id = $id - 1;
     
-}
-
-if(isset($_POST['next'])){
-    $id++;
-    getPokemon($id++);
- }*/
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +79,7 @@ if(isset($_POST['next'])){
                     </div>
                     <form method="post" action="index.php" class="left-container_bottom-section">
                             <input class="searchBar" type="text" name="search" placeholder=" Pokemon Name or ID "/>
-                            <input class="button" id="run" type="submit" name="run"/>
+                            <input class="button" id="run" type="submit" name="run" value=" GO "/>
                     </form>
                 </div>
                 <div class="left-container_right">
