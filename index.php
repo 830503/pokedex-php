@@ -23,13 +23,18 @@
 
     
     $name = getPokemon($id)->name;
+    $id = getPokemon($id)->id;
     $img_front = getPokemon($id)->sprites->front_default;
     $img_back = getPokemon($id)->sprites->back_default;    
-    $move1 = getPokemon($id)->moves[0]->move->name;
-    $move2 = getPokemon($id)->moves[1]->move->name;
-    $move3 = getPokemon($id)->moves[2]->move->name;
-    $move4 = getPokemon($id)->moves[3]->move->name;
+    
+    $getMoves = getPokemon($id)->moves;
+    $moves = array_splice($getMoves,0,4);
+    
+    
+    
+    
 
+   
     
 ?>
 
@@ -69,9 +74,6 @@
                                 </div>
                                 <form action="index.php" method="post" class="screen_buttons">
                                     <input type="submit" class="button" id="prev-button" name="previous" value="Previous" />
-                                    <?php  
-                                    
-                                    ?>
                                     <input type="submit" class="button" id="next-button" name="next" value="Next" />
                                 </form>
                             </div>
@@ -90,10 +92,47 @@
         </div>
         <div class="right-container">
             <div class="right-container_black">
-                <div class="move1" id="move1"><?php echo $move1 ?></div>
-                <div class="move2" id="move2"><?php echo $move2 ?></div>
-                <div class="move3" id="move3"><?php echo $move3 ?></div>
-                <div class="move4" id="move4"><?php echo $move4 ?></div>
+                <div class="move1" id="move1">
+                    <?php 
+                    if(array_key_exists(0, $moves)){
+                        $move1 = $moves[0]->move->name;
+                        echo $move1;
+                    }else {
+                        echo "NA";
+                    }
+                    ?>
+                 </div>
+                <div class="move2" id="move2">
+                    <?php 
+                    if(array_key_exists(1, $moves)){
+                        $move2 = $moves[1]->move->name;
+                        echo $move2;
+                    }else {
+                        echo "NA";
+                    }
+                     ?>
+                </div>
+                <div class="move3" id="move3">
+                    <?php
+                     if(array_key_exists(2, $moves)){
+                        $move3 = $moves[2]->move->name;
+                        echo $move3;
+                    }else {
+                        echo "NA";
+                    }
+                     ?>
+                </div>
+                <div class="move4" id="move4">
+                    <?php
+                    
+                    if(array_key_exists(3, $moves)){
+                        $move4 = $moves[3]->move->name;
+                        echo $move4;
+                    }else {
+                        echo "NA";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
