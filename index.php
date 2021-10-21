@@ -1,7 +1,9 @@
 
 <?php
     
-    $id = 80;
+    $id = 6;
+
+    
 
     function getPokemon($id){
         $base = "https://pokeapi.co/api/v2/pokemon/";
@@ -13,7 +15,7 @@
     $name = getPokemon($id)->name;
     $id = getPokemon($id)->id;
     
-   
+    
     $img_front = getPokemon($id)->sprites->front_default;
     $img_back = getPokemon($id)->sprites->back_default;
     $move1 = getPokemon($id)->moves[0]->move->name;
@@ -23,14 +25,20 @@
 ?>
 
 <?php
- 
-if(isset($_POST['previous'])){
-    return $id--;
+if(isset($_POST['run'])){
+    $id = $_POST['search'];
     getPokemon($id);
 }
-else if(isset($_POST['next'])){
-    echo nex($id);
+
+/*if(isset($_POST['previous'])){
+    $id = $id - 1;
+    
 }
+
+if(isset($_POST['next'])){
+    $id++;
+    getPokemon($id++);
+ }*/
 
 ?>
 
@@ -69,15 +77,18 @@ else if(isset($_POST['next'])){
                                 </div>
                                 <form action="index.php" method="post" class="screen_buttons">
                                     <input type="submit" class="button" id="prev-button" name="previous" value="Previous" />
+                                    <?php  
+                                    
+                                    ?>
                                     <input type="submit" class="button" id="next-button" name="next" value="Next" />
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="left-container_bottom-section">
-                            <input class="searchBar" type="text" name="pokemon" placeholder=" Pokemon Name or ID "/>
-                            <img class="button" id="run" src="img/search.png" alt="magnifying glass">
-                    </div>
+                    <form method="post" action="index.php" class="left-container_bottom-section">
+                            <input class="searchBar" type="text" name="search" placeholder=" Pokemon Name or ID "/>
+                            <input class="button" id="run" type="submit" name="run"/>
+                    </form>
                 </div>
                 <div class="left-container_right">
                     <div class="left-container_hinge"></div>
